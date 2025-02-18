@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Network-interceptor"
 include(":app")
- 
+include(":networkinterceptor")

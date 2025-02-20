@@ -1,5 +1,6 @@
-package ir.thesinaa.networkinterceptor
+package ir.thesinaa.networkinterceptor.errorhandlinginterceptor
 
+import ir.thesinaa.networkinterceptor.StatusCode
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException

@@ -9,7 +9,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ir.thesinaa.networkinterceptor.errorhandlinginterceptor.ErrorHandlingInterceptor
+import ir.thesinaa.networkinterceptor.headerinterceptor.HeaderInterceptor
+import ir.thesinaa.networkinterceptor.httprequestinterceptor.HttpRequestLoggingInterceptor
 import ir.thesinaa.networkinterceptor.networkconnectioninterceptor.NetworkConnectionInterceptor
+import ir.thesinaa.networkinterceptor.retryinterceptor.Config
+import ir.thesinaa.networkinterceptor.retryinterceptor.RetryInterceptor
 import kotlinx.serialization.json.Json
 import okhttp3.Call
 import okhttp3.MediaType.Companion.toMediaType
@@ -35,7 +39,18 @@ internal object NetworkModule {
                 HttpLoggingInterceptor()
                     .apply { setLevel(HttpLoggingInterceptor.Level.BODY) },
             )
+            .addInterceptor(HeaderInterceptor(
+                {
+                    mapOf(
+                        "Authorization" to "Bearer your-dynamic-token",
+                        "User-Agent" to "MyApp Android",
+                        "Accept-Language" to "en-US"
+                    )
+                }
+            ))
             .addInterceptor(ErrorHandlingInterceptor())
+            .addInterceptor(HttpRequestLoggingInterceptor())
+            .addInterceptor(RetryInterceptor(Config(3, 2000, emptyList())))
             .addInterceptor(NetworkConnectionInterceptor(context))
             .build()
 

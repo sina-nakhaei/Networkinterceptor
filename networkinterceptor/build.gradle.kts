@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "ir.thesinaa.networkinterceptor"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 24

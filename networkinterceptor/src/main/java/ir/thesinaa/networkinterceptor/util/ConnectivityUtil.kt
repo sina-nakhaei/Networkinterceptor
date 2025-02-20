@@ -1,4 +1,4 @@
-package ir.thesinaa.networkinterceptor
+package ir.thesinaa.networkinterceptor.util
 
 import android.content.Context
 import android.net.ConnectivityManager

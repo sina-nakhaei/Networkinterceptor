@@ -1,6 +1,7 @@
 package ir.thesinaa.networkinterceptor
 
 import android.content.Context
+import ir.thesinaa.networkinterceptor.util.ConnectivityUtil
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.io.IOException

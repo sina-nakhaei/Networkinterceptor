@@ -1,6 +1,6 @@
 package ir.thesinaa.networkinterceptor
 
-internal enum class StatusCode(val code: Int) {
+enum class StatusCode(val code: Int) {
     Unknown(0),
 
     Continue(100),

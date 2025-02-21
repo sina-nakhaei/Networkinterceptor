@@ -12,6 +12,7 @@ import ir.thesinaa.networkinterceptor.errorhandlinginterceptor.ErrorHandlingInte
 import ir.thesinaa.networkinterceptor.headerinterceptor.HeaderInterceptor
 import ir.thesinaa.networkinterceptor.httprequestinterceptor.HttpRequestLoggingInterceptor
 import ir.thesinaa.networkinterceptor.networkconnectioninterceptor.NetworkConnectionInterceptor
+import ir.thesinaa.networkinterceptor.performancemonitoringinterceptor.PerformanceMonitoringInterceptor
 import ir.thesinaa.networkinterceptor.retryinterceptor.Config
 import ir.thesinaa.networkinterceptor.retryinterceptor.RetryInterceptor
 import kotlinx.serialization.json.Json
@@ -52,6 +53,7 @@ internal object NetworkModule {
             .addInterceptor(HttpRequestLoggingInterceptor())
             .addInterceptor(RetryInterceptor(Config(3, 2000, emptyList())))
             .addInterceptor(NetworkConnectionInterceptor(context))
+            .addInterceptor(PerformanceMonitoringInterceptor())
             .build()
 
 

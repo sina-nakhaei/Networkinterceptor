@@ -8,6 +8,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import ir.thesinaa.networkinterceptor.compressorinterceptor.CompressionInterceptor
+import ir.thesinaa.networkinterceptor.encryptioninterceptor.EncryptionInterceptor
 import ir.thesinaa.networkinterceptor.errorhandlinginterceptor.ErrorHandlingInterceptor
 import ir.thesinaa.networkinterceptor.headerinterceptor.HeaderInterceptor
 import ir.thesinaa.networkinterceptor.httprequestinterceptor.HttpRequestLoggingInterceptor
@@ -36,24 +38,17 @@ internal object NetworkModule {
     @Singleton
     fun okHttpCallFactory(@ApplicationContext context: Context): Call.Factory =
         OkHttpClient.Builder()
+            .addInterceptor(EncryptionInterceptor())
             .addInterceptor(
                 HttpLoggingInterceptor()
                     .apply { setLevel(HttpLoggingInterceptor.Level.BODY) },
             )
-            .addInterceptor(HeaderInterceptor(
-                {
-                    mapOf(
-                        "Authorization" to "Bearer your-dynamic-token",
-                        "User-Agent" to "MyApp Android",
-                        "Accept-Language" to "en-US"
-                    )
-                }
-            ))
             .addInterceptor(ErrorHandlingInterceptor())
-            .addInterceptor(HttpRequestLoggingInterceptor())
             .addInterceptor(RetryInterceptor(Config(3, 2000, emptyList())))
             .addInterceptor(NetworkConnectionInterceptor(context))
             .addInterceptor(PerformanceMonitoringInterceptor())
+//            .addInterceptor(CompressionInterceptor())
+            .addInterceptor(HttpRequestLoggingInterceptor())
             .build()
 
 

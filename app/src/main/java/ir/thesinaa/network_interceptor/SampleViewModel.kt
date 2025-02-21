@@ -35,4 +35,19 @@ class SampleViewModel @Inject constructor(
                 }
         }
     }
+
+    fun createUser() {
+        viewModelScope.launch {
+            repo.createUser()
+                .onSuccess {
+                    Log.w(TAG, "user-success: $data")
+                }
+                .onError {
+                    Log.e(TAG, "user-error: $payload")
+                }
+                .onException {
+                    Log.e(TAG, "user-exception: $message")
+                }
+        }
+    }
 }

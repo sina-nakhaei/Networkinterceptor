@@ -1,7 +1,24 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+
+    id("maven-publish")
 }
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components["release"])
+                groupId = "ir.thesinaa"
+                artifactId = "network-interceptors"
+                version = "1.0.0"
+            }
+        }
+    }
+}
+
+
 
 android {
     namespace = "ir.thesinaa.networkinterceptor"
